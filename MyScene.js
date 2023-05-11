@@ -4,11 +4,13 @@
 import * as THREE from '../libs/three.module.js'
 import { GUI } from '../libs/dat.gui.module.js'
 import { TrackballControls } from '../libs/TrackballControls.js'
+import { CSG } from '../libs/CSG-v2.js'
 import { FirstPersonControls } from '../libs/FirstPersonControls.js'
 
 // Clases de mi proyecto
 
 import { Llave } from './llave.js'
+import { ParedCentral } from './paredCentral.js'
  
 /// La clase fachada del modelo
 /**
@@ -39,8 +41,8 @@ class MyScene extends THREE.Scene {
     this.keys = { W: false, A: false, S: false, D: false };
     this.controls = this.createControls();
 
-    // Un suelo 
-    this.createGround ();
+    // La habitación 
+    this.createRoom ();
     
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
     this.axis = new THREE.AxesHelper (5);
@@ -64,9 +66,9 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (6, 3, 6);
+    this.camera.position.set (900, 18, 0);
     // Y hacia dónde mira
-    var look = new THREE.Vector3 (0,0,0);
+    var look = new THREE.Vector3 (0,18,0);
     this.camera.lookAt(look);
     
   }
@@ -112,58 +114,83 @@ class MyScene extends THREE.Scene {
     }
   }
   
-  createGround () {
-    // El suelo es un Mesh, necesita una geometría y un material.
-    
-    // La geometría es una caja con muy poca altura
-    var geometryGround = new THREE.BoxGeometry (500,0.2,500);
+  createRoom () {
 
-    var geometryWall = new THREE.BoxGeometry (500,0.2,500);
-    
-    // El material se hará con una textura de madera
-    var texture = new THREE.TextureLoader().load('../imgs/tecno.jpg');
+    let largoHabitacion = 2000;
+    let anchoHabitacion = 500;
+    let altoHabitacion = 400;
+
+    // Material
+    var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
     var materialGround = new THREE.MeshPhongMaterial ({map: texture});
     
-    // Ya se puede construir el Mesh
-    var ground = new THREE.Mesh (geometryGround, materialGround);
+    //CREAR EXTERIOR (CAJA) DE LA HABITACIÓN
+    // Geometria del suelo y el techo
+    var geometryGroundRoof = new THREE.BoxGeometry (largoHabitacion,0.2,anchoHabitacion);
 
-    var roof = new THREE.Mesh (geometryGround, materialGround);
+    // Geometria de las paredes de los lados
+    var geometrySideWall = new THREE.BoxGeometry (largoHabitacion,0.2,altoHabitacion);
 
-    roof.position.y = 500;
+    //Geometria de las paredes frontales
+    var geometryFrontWall = new THREE.BoxGeometry (altoHabitacion,0.2,anchoHabitacion);
     
-    // Todas las figuras se crean centradas en el origen.
+    // Mesh
+    var ground = new THREE.Mesh (geometryGroundRoof, materialGround);
+    var roof = new THREE.Mesh (geometryGroundRoof, materialGround);
+
+    var wall1 = new THREE.Mesh (geometrySideWall, materialGround);
+    var wall2 = new THREE.Mesh (geometrySideWall, materialGround);
+
+    var wall3 = new THREE.Mesh (geometryFrontWall, materialGround);
+    var wall4 = new THREE.Mesh (geometryFrontWall, materialGround);
+
+    // Colocar las paredes, suelo y techo donde correspone
+    roof.position.y = altoHabitacion;
+
     // El suelo lo bajamos la mitad de su altura para que el origen del mundo se quede en su lado superior
     ground.position.y = -0.1;
 
-    var wall1 = new THREE.Mesh (geometryWall, materialGround);
-    var wall2 = new THREE.Mesh (geometryWall, materialGround);
-    var wall3 = new THREE.Mesh (geometryWall, materialGround);
-    var wall4 = new THREE.Mesh (geometryWall, materialGround);
+    wall1.rotation.x = Math.PI/2;
+    wall1.position.y = altoHabitacion/2;
+    wall1.position.z = anchoHabitacion/2;
 
+    wall2.rotation.x = Math.PI/2;
+    wall2.position.y = altoHabitacion/2;
+    wall2.position.z = -anchoHabitacion/2;
 
-    wall1.rotation.z = Math.PI/2;
-    wall1.position.y = 250;
-    wall1.position.x = 250;
+    wall3.rotation.z = Math.PI/2;
+    wall3.position.y = altoHabitacion/2;
+    wall3.position.x = largoHabitacion/2;
 
-    wall2.rotation.z = Math.PI/2;
-    wall2.position.y = 250;
-    wall2.position.x = -250;
-
-    wall3.rotation.x = Math.PI/2;
-    wall3.position.y = 250;
-    wall3.position.z = 250;
-
-    wall4.rotation.x = Math.PI/2;
-    wall4.position.y = 250;
-    wall4.position.z = -250;
+    wall4.rotation.z = Math.PI/2;
+    wall4.position.y = altoHabitacion/2;
+    wall4.position.x = -largoHabitacion/2;
     
-    // Que no se nos olvide añadirlo a la escena, que en este caso es  this
+    // Añadir a la escena
     this.add (ground);
     this.add(wall1);
     this.add(wall2);
     this.add(wall3);
     this.add(wall4);
     this.add(roof);
+
+    //CREAR PAREDES CENTRALES HABITACIÓN
+    var wallInt1 = new THREE.Mesh (geometryFrontWall, materialGround);
+    var wallInt2 = new THREE.Mesh (geometryFrontWall, materialGround);
+    var wallInt3 = new THREE.Mesh (geometryFrontWall, materialGround);
+
+    // Hueco puerta paredes interiores
+    this.central1 = new ParedCentral(this.gui, "");
+    this.central2 = new ParedCentral(this.gui, "");
+    this.central3 = new ParedCentral(this.gui, "");
+
+    this.central1.position.x = 800;
+    this.central3.position.x = -300;
+
+    this.add(this.central1);
+    this.add(this.central2);
+    this.add(this.central3);
+
   }
   
   createGUI () {
@@ -284,7 +311,7 @@ class MyScene extends THREE.Scene {
     //this.cameraControl.update();
 
     // Establecer la posición Y de la cámara en un valor constante
-    const fixedY = 4; // Puedes ajustar este valor según tus necesidades
+    const fixedY = 18; // Puedes ajustar este valor según tus necesidades
     this.camera.position.y = fixedY;
     this.controls.update(this.reloj.getDelta());
     
