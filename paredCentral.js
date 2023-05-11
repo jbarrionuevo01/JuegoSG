@@ -7,7 +7,7 @@ class ParedCentral extends THREE.Object3D {
     super();
 
     var mat = new THREE.MeshNormalMaterial();
-    var geometryWallInt = new THREE.BoxGeometry (5,400,500);
+    var geometryWallInt = new THREE.BoxGeometry (5,199.9,499.9);
     
     var wallInt = new THREE.Mesh (geometryWallInt, mat);
 
@@ -15,7 +15,7 @@ class ParedCentral extends THREE.Object3D {
     var huecoWallIntGeom = new THREE.BoxGeometry (10,60,20);
     var huecoWallInt = new THREE.Mesh (huecoWallIntGeom, mat);
 
-    wallInt.position.y = 200;
+    wallInt.position.y = 100;
     huecoWallInt.y = 11;
 
     var csg = new CSG();

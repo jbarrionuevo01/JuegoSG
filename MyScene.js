@@ -5,7 +5,8 @@ import * as THREE from '../libs/three.module.js'
 import { GUI } from '../libs/dat.gui.module.js'
 import { TrackballControls } from '../libs/TrackballControls.js'
 import { CSG } from '../libs/CSG-v2.js'
-import { FirstPersonControls } from '../libs/FirstPersonControls.js'
+import { PointerLockControls } from '../libs/PointerLockControls.js'
+import * as KeyCode from '../libs/keycode.esm.js'
 
 // Clases de mi proyecto
 
@@ -22,6 +23,12 @@ class MyScene extends THREE.Scene {
   // la visualización de la escena
   constructor (myCanvas) { 
     super();
+
+    this.avanzar = false;
+    this.retroceder = false;
+    this.izquierda = false;
+    this.derecha = false;
+    this.bloquear = false;
     
     // Lo primero, crear el visualizador, pasándole el lienzo sobre el que realizar los renderizados.
     this.renderer = this.createRenderer(myCanvas);
@@ -74,51 +81,66 @@ class MyScene extends THREE.Scene {
   }
 
    // Métodos de manejo de eventos de teclado
-   onKeyDown(event) {
+   onKeyDown = function (event) {
     switch (event.code) {
-      case 'KeyW':
-        this.keys.W = true;
-        break;
-      case 'KeyA':
-        this.keys.A = true;
-        break;
-      case 'KeyS':
-        this.keys.S = true;
-        break;
-      case 'KeyD':
-        this.keys.D = true;
-        break;
+        case 'KeyW':
+            this.avanzar = true;
+            break;
+        case 'KeyA':
+            this.izquierda = true;
+            break;
+        case 'KeyS':
+            this.retroceder = true;
+            break;
+        case 'KeyD':
+            this.derecha = true;
+            break;
     }
-  }
+}
 
-  onKeyUp(event) {
-    switch (event.code) {
+onKeyUp = function (event) {
+  switch (event.code) {
       case 'KeyW':
-        this.keys.W = false;
-        break;
+          this.avanzar = false;
+          break;
       case 'KeyA':
-        this.keys.A = false;
-        break;
+          this.izquierda = false;
+          break;
       case 'KeyS':
-        this.keys.S = false;
-        break;
+          this.retroceder = false;
+          break;
       case 'KeyD':
-        this.keys.D = false;
-        break;
-    }
+          this.derecha = false;
+          break;
   }
+}
 
-  onMouseDown(event){
+onKeyPress = function (event) {
+  switch (event.code) {
+      case 'KeyE':
+        if(this.bloquear){
+          this.controls.unlock();
+          this.bloquear = false;
+        }
+        else{
+          this.controls.lock();
+          this.bloquear = true;
+        }
+        break;
+  }
+}
+
+  /*onMouseDown(event){
     if (event.button === 0 || event.button === 2) {
       event.preventDefault();
     }
-  }
+  }*/
   
   createRoom () {
 
     let largoHabitacion = 2000;
     let anchoHabitacion = 500;
-    let altoHabitacion = 400;
+    let altoHabitacion = 200;
 
     // Material
     var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
@@ -205,19 +227,6 @@ class MyScene extends THREE.Scene {
       lightIntensity : 0.5,
       axisOnOff : true
     }
-
-    // Se crea una sección para los controles de esta clase
-    var folder = gui.addFolder ('Luz y Ejes');
-    
-    // Se le añade un control para la intensidad de la luz
-    folder.add (this.guiControls, 'lightIntensity', 0, 1, 0.1)
-      .name('Intensidad de la Luz : ')
-      .onChange ( (value) => this.setLightIntensity (value) );
-    
-    // Y otro para mostrar u ocultar los ejes
-    folder.add (this.guiControls, 'axisOnOff')
-      .name ('Mostrar ejes : ')
-      .onChange ( (value) => this.setAxisVisible (value) );
     
     return gui;
   }
@@ -268,13 +277,7 @@ class MyScene extends THREE.Scene {
 
   createControls () {
     var controls;
-    controls = new FirstPersonControls( this.camera, this.renderer.domElement );
-    controls.movementSpeed = 100;
-    controls.lookSpeed = 0.1;
-
-    controls.noFly = true;
-    controls.enabled = true;
-
+    controls = new PointerLockControls( this.camera, this.renderer.domElement );
     return controls;
   }
   
@@ -307,13 +310,19 @@ class MyScene extends THREE.Scene {
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
 
-    // Se actualiza la posición de la cámara según su controlador
-    //this.cameraControl.update();
 
-    // Establecer la posición Y de la cámara en un valor constante
-    const fixedY = 18; // Puedes ajustar este valor según tus necesidades
-    this.camera.position.y = fixedY;
-    this.controls.update(this.reloj.getDelta());
+    if(this.avanzar) {
+      this.controls.moveForward(1.5) ;
+    }
+    if(this.retroceder) {
+      this.controls.moveForward(-1.5) ;
+    }
+    if(this.derecha) {
+      this.controls.moveRight(1.5) ;
+    }
+    if(this.izquierda) {
+      this.controls.moveRight(-1.5) ;
+    }
     
     // Se actualiza el resto del modelo
     this.model.update();
@@ -337,9 +346,7 @@ $(function () {
 
   window.addEventListener('keydown', (event) => scene.onKeyDown(event));
   window.addEventListener('keyup', (event) => scene.onKeyUp(event));
-
-  // Deshabilitar el comportamiento predeterminado de los clicks derecho e izquierdo del ratón
-  window.addEventListener("mousedown", (event) => scene.onMouseDown(event));
+  window.addEventListener('keypress', (event) => scene.onKeyPress(event));
   
   // Que no se nos olvide, la primera visualización.
   scene.update();
