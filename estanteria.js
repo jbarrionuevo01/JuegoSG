@@ -40,6 +40,11 @@ class Estanteria extends THREE.Object3D {
     this.estanteria.add(baldaVertical1);
     this.estanteria.add(baldaVertical2);
 
+    this.estanteria.position.x = 100;
+    this.estanteria.position.z = 247.5;
+
+    this.estanteria.scale.set(4,4,4);
+
     this.add(this.estanteria);
 }
 

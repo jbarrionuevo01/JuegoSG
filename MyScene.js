@@ -12,6 +12,7 @@ import * as KeyCode from '../libs/keycode.esm.js'
 
 import { Llave } from './llave.js'
 import { ParedCentral } from './paredCentral.js'
+import { Estanteria } from './estanteria.js'
  
 /// La clase fachada del modelo
 /**
@@ -59,8 +60,13 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
+    this.model = new Estanteria(this.gui, "Nada");
+    this.add (this.model);
+    
+    
     this.model = new Llave(this.gui, "Nada");
     this.add (this.model);
+    
 
     this.reloj = new THREE.Clock();
 
