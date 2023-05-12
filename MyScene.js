@@ -12,6 +12,7 @@ import * as KeyCode from '../libs/keycode.esm.js'
 
 import { Llave } from './llave.js'
 import { ParedCentral } from './paredCentral.js'
+import { BolaDemolicion } from './bolaDemolicion.js'
  
 /// La clase fachada del modelo
 /**
@@ -45,22 +46,37 @@ class MyScene extends THREE.Scene {
     // Tendremos una cámara con un control de movimiento con el ratón
     this.createCamera ();
 
-    this.keys = { W: false, A: false, S: false, D: false };
     this.controls = this.createControls();
 
     // La habitación 
-    this.createRoom ();
+    this.createRoom ();  
     
-    // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
-    this.axis = new THREE.AxesHelper (5);
-    this.add (this.axis);
-    
-    
-    // Por último creamos el modelo.
-    // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
-    // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.model = new Llave(this.gui, "Nada");
-    this.add (this.model);
+    /*
+      ULTIMA SALA
+    */
+    this.bolaDemolicion1 = new BolaDemolicion(this.gui, "");
+    this.add (this.bolaDemolicion1);
+
+    this.bolaDemolicion1.position.set(-450, 199.9, 100);
+
+    this.bolaDemolicion2 = new BolaDemolicion(this.gui, "");
+    this.add (this.bolaDemolicion2);
+
+    this.bolaDemolicion2.position.set(-650, 199.9, 0);
+
+    this.bolaDemolicion3 = new BolaDemolicion(this.gui, "");
+    this.add (this.bolaDemolicion3);
+
+    this.bolaDemolicion3.position.set(-850, 199.9, -100);
+
+    /*
+      LLAVE
+    */
+
+    this.llave = new Llave(this.gui, "");
+    this.add (this.llave);
+
+    this.llave.position.set(-950, 3, 0);
 
     this.reloj = new THREE.Clock();
 
@@ -80,22 +96,22 @@ class MyScene extends THREE.Scene {
     
   }
 
-   // Métodos de manejo de eventos de teclado
-   onKeyDown = function (event) {
-    switch (event.code) {
-        case 'KeyW':
-            this.avanzar = true;
-            break;
-        case 'KeyA':
-            this.izquierda = true;
-            break;
-        case 'KeyS':
-            this.retroceder = true;
-            break;
-        case 'KeyD':
-            this.derecha = true;
-            break;
-    }
+  // Métodos de manejo de eventos de teclado
+  onKeyDown = function (event) {
+  switch (event.code) {
+      case 'KeyW':
+          this.avanzar = true;
+          break;
+      case 'KeyA':
+          this.izquierda = true;
+          break;
+      case 'KeyS':
+          this.retroceder = true;
+          break;
+      case 'KeyD':
+          this.derecha = true;
+          break;
+  }
 }
 
 onKeyUp = function (event) {
@@ -164,7 +180,6 @@ onKeyPress = function (event) {
     var wall2 = new THREE.Mesh (geometrySideWall, materialGround);
 
     var wall3 = new THREE.Mesh (geometryFrontWall, materialGround);
-    var wall4 = new THREE.Mesh (geometryFrontWall, materialGround);
 
     // Colocar las paredes, suelo y techo donde correspone
     roof.position.y = altoHabitacion;
@@ -183,23 +198,13 @@ onKeyPress = function (event) {
     wall3.rotation.z = Math.PI/2;
     wall3.position.y = altoHabitacion/2;
     wall3.position.x = largoHabitacion/2;
-
-    wall4.rotation.z = Math.PI/2;
-    wall4.position.y = altoHabitacion/2;
-    wall4.position.x = -largoHabitacion/2;
     
     // Añadir a la escena
     this.add (ground);
     this.add(wall1);
     this.add(wall2);
     this.add(wall3);
-    this.add(wall4);
     this.add(roof);
-
-    //CREAR PAREDES CENTRALES HABITACIÓN
-    var wallInt1 = new THREE.Mesh (geometryFrontWall, materialGround);
-    var wallInt2 = new THREE.Mesh (geometryFrontWall, materialGround);
-    var wallInt3 = new THREE.Mesh (geometryFrontWall, materialGround);
 
     // Hueco puerta paredes interiores
     this.central1 = new ParedCentral(this.gui, "");
@@ -209,9 +214,13 @@ onKeyPress = function (event) {
     this.central1.position.x = 800;
     this.central3.position.x = -300;
 
+    var final = new ParedCentral(this.gui, "");
+    final.position.x = -largoHabitacion/2;
+
     this.add(this.central1);
     this.add(this.central2);
     this.add(this.central3);
+    this.add(final);
 
   }
   
@@ -225,7 +234,7 @@ onKeyPress = function (event) {
     this.guiControls = {
       // En el contexto de una función   this   alude a la función
       lightIntensity : 0.5,
-      axisOnOff : true
+      axisOnOff : false
     }
     
     return gui;
@@ -325,7 +334,10 @@ onKeyPress = function (event) {
     }
     
     // Se actualiza el resto del modelo
-    this.model.update();
+    this.llave.update();
+    this.bolaDemolicion1.update();
+    this.bolaDemolicion2.update();
+    this.bolaDemolicion3.update();
     
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".
