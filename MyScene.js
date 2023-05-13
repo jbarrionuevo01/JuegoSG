@@ -48,6 +48,10 @@ class MyScene extends THREE.Scene {
 
     this.controls = this.createControls();
 
+    // PICKING
+    this.mouse = new THREE.Vector2();
+    this.raycaster = new THREE.Raycaster();
+
     // La habitación 
     this.createRoom ();  
     
@@ -79,6 +83,11 @@ class MyScene extends THREE.Scene {
     this.llave.position.set(-950, 3, 0);
 
     this.reloj = new THREE.Clock();
+
+
+    // Objetos pickables
+    this.pickableObjects = [];
+    this.pickableObjects.push(this.llave);
 
   }
   
@@ -311,10 +320,29 @@ onKeyPress = function (event) {
     
     // Y también el tamaño del renderizador
     this.renderer.setSize (window.innerWidth, window.innerHeight);
-
-    this.controls.handleResize();
   }
 
+  onDocumentMouseDown(event) {
+
+    // Obtener posicion del click en coordenadas normalizadas
+    this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    this.mouse.y = 1- 2 * (event.clientY / window.innerHeight);
+
+    // Rayo de la camara que pasa por donde se hizo click
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+
+    var pickedObjects = this.raycaster.intersectObjects(this.children, false);
+    var selectedObject = null;
+
+    if (pickedObjects.length > 0) {
+        selectedObject = pickedObjects[0].object;
+        console.log("picked object");
+        /*if(selectedObject.userData){ 
+          selectedObject.userData.recibeClick(selectedObject);
+        }*/
+      }
+
+}
   update () {
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
@@ -356,9 +384,14 @@ $(function () {
   // Se añaden los listener de la aplicación. En este caso, el que va a comprobar cuándo se modifica el tamaño de la ventana de la aplicación.
   window.addEventListener ("resize", () => scene.onWindowResize());
 
+  // CONTROLES DE TECLADO
   window.addEventListener('keydown', (event) => scene.onKeyDown(event));
   window.addEventListener('keyup', (event) => scene.onKeyUp(event));
   window.addEventListener('keypress', (event) => scene.onKeyPress(event));
+
+  // PICKING
+  window.addEventListener('click', (event) => scene.onDocumentMouseDown(event));
+
   
   // Que no se nos olvide, la primera visualización.
   scene.update();
