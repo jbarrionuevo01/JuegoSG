@@ -6,7 +6,8 @@ class Silla extends THREE.Object3D {
   constructor(gui, titleGui){
     super();
 
-    var mat = new THREE.MeshNormalMaterial();
+    //var mat = new THREE.MeshNormalMaterial();
+    var mat = new THREE.MeshPhongMaterial({color: 0xFF3333});
 
     var geometriaPataSilla = new THREE.BoxGeometry(0.5,4,0.5);
     geometriaPataSilla.translate(0,2,0);
@@ -33,55 +34,30 @@ class Silla extends THREE.Object3D {
     var respaldoSilla = new THREE.Mesh (geometriaRespaldo, mat);
     respaldoSilla.position.y = 4.5;
     respaldoSilla.position.z = -2;
-    //asientoSilla.rotation.x = (Math.PI / 2);
 
-    
+    var geometriaHuecoRespaldo = new THREE.BoxGeometry(3.5,2,0.5);
+    geometriaHuecoRespaldo.translate(0,0.75,0);
 
+    var huecoRespaldo = new THREE.Mesh (geometriaHuecoRespaldo, mat);
+    huecoRespaldo.position.y = 4.5;
+    huecoRespaldo.position.z = -2;
 
+    var csg = new CSG();
+    csg.union([respaldoSilla]);
+    csg.subtract([huecoRespaldo]);
 
-    /*geometriaBaldasHorizontales.rotateZ(Math.PI / 2);
-    geometriaBaldasHorizontales.rotateX(Math.PI / 2);
-    geometriaBaldasHorizontales.translate(0,0.25,0);
-
-    var geometriaBaldasVerticales = new THREE.BoxGeometry(2.5,11,0.5);
-    geometriaBaldasVerticales.rotateY(Math.PI / 2);
-    geometriaBaldasVerticales.translate(0,5.5,0);
-    
-    var baldaVertical1 = new THREE.Mesh (geometriaBaldasVerticales, mat);
-    baldaVertical1.position.x = 5;
-    var baldaVertical2 = new THREE.Mesh (geometriaBaldasVerticales, mat);
-    baldaVertical2.position.x = -5;
-    
-    this.createGUI(gui, titleGui);
-
-    //this.add (baldasHorizontales);
+    var respaldoConHueco = csg.toMesh ( );
 
     this.silla = new THREE.Object3D();
-
-    for(var i = 0; i < 4; i++)
-    {
-      var baldasHorizontales = new THREE.Mesh (geometriaBaldasHorizontales, mat);
-      //baldasHorizontales.rotation.z =  (Math.PI / 2);
-      //baldasHorizontales.rotation.x =  (Math.PI / 2);
-      baldasHorizontales.position.y = i*3;
-      this.silla.add (baldasHorizontales);
-    }
-
-    this.silla.add(baldaVertical1);
-    this.silla.add(baldaVertical2);
-
-    //this.estanteria.position.x = 100;
-    //this.estanteria.position.z = 247.5;
-
-    //this.estanteria.scale.set(4,4,4);
-
-    this.add(this.silla);*/
-    this.add(pata1);
-    this.add(pata2);
-    this.add(pata3);
-    this.add(pata4);
-    this.add(asientoSilla);
-    this.add(respaldoSilla)
+  
+    this.silla.add(pata1);
+    this.silla.add(pata2);
+    this.silla.add(pata3);
+    this.silla.add(pata4);
+    this.silla.add(asientoSilla);
+    this.silla.add(respaldoConHueco);
+    
+    this.add(this.silla);
 }
 
 
