@@ -14,6 +14,9 @@ import { Llave } from './llave.js'
 import { ParedCentral } from './paredCentral.js'
 import { BolaDemolicion } from './bolaDemolicion.js'
 import { Laberinto } from './laberinto.js'
+import { Mesa } from './mesa.js'
+import { Silla } from './silla.js'
+import { Estanteria } from './estanteria.js'
  
 /// La clase fachada del modelo
 /**
@@ -81,6 +84,29 @@ class MyScene extends THREE.Scene {
     this.laberinto = new Laberinto(this.gui, "");
     this.laberinto.position.set(400,0,0);
     this.add (this.laberinto);
+
+     /*
+      SALA INICIAL
+    */
+    this.mesa = new Mesa(this.gui, "");
+    this.mesa.position.set(975,0,50);
+    this.mesa.rotation.y = (Math.PI / 2);
+    this.mesa.scale.set(3,3,3);
+    this.add (this.mesa);
+
+    this.silla = new Silla(this.gui, "");
+    this.silla.position.set(975,0,50);
+    this.silla.rotation.y = (Math.PI / 2);
+    this.silla.scale.set(3,3,3);
+    this.add (this.silla);
+
+    this.estanteria = new Estanteria(this.gui, "");
+    this.estanteria.position.set(745,0,50);
+    this.estanteria.rotation.y = (Math.PI / 2);
+    //this.estanteria.scale.set(2.5,2.5,2.5);
+    this.add (this.estanteria);
+
+
 
     /*
       LLAVE

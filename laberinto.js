@@ -19,7 +19,7 @@ class Laberinto extends THREE.Object3D {
 
     var muroGrande1 = new THREE.Mesh (geometriaMuroGrande, mat);
     //muroGrande1.rotation.x =  (Math.PI / 2);
-    muroGrande1.position.x =  273;
+    muroGrande1.position.x =  272.5;
     muroGrande1.position.z =  15;
 
     var muroGrande2 = new THREE.Mesh (geometriaMuroGrande, mat);
@@ -30,7 +30,7 @@ class Laberinto extends THREE.Object3D {
 
     var muroGrande3 = new THREE.Mesh (geometriaMuroGrande, mat);
     //muroGrande1.rotation.x =  (Math.PI / 2);
-    muroGrande3.position.x =  273;
+    muroGrande3.position.x =  272.5;
     muroGrande3.position.z =  -15;
 
     var muroGrande4 = new THREE.Mesh (geometriaMuroGrande, mat);

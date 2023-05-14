@@ -7,7 +7,7 @@ class Mesa extends THREE.Object3D {
     super();
 
     //var mat = new THREE.MeshNormalMaterial();
-    var mat = new THREE.MeshPhongMaterial({color: 0xD57F11});
+    var mat = new THREE.MeshPhongMaterial({color: 0x00FF13});
 
     var geometriaPatamesa = new THREE.BoxGeometry(0.5,4,0.5);
     geometriaPatamesa.translate(0,2,0);
