@@ -17,6 +17,7 @@ import { Laberinto } from './laberinto.js'
 import { Mesa } from './mesa.js'
 import { Silla } from './silla.js'
 import { Estanteria } from './estanteria.js'
+import { Fence } from './fence.js'
  
 /// La clase fachada del modelo
 /**
@@ -65,7 +66,7 @@ class MyScene extends THREE.Scene {
     this.bolaDemolicion1 = new BolaDemolicion(this.gui, "");
     this.add (this.bolaDemolicion1);
 
-    this.bolaDemolicion1.position.set(-450, 199.9, 100);
+    this.bolaDemolicion1.position.set(-450, 199.9, 119);
 
     this.bolaDemolicion2 = new BolaDemolicion(this.gui, "");
     this.add (this.bolaDemolicion2);
@@ -75,7 +76,49 @@ class MyScene extends THREE.Scene {
     this.bolaDemolicion3 = new BolaDemolicion(this.gui, "");
     this.add (this.bolaDemolicion3);
 
-    this.bolaDemolicion3.position.set(-850, 199.9, -100);
+    this.bolaDemolicion3.position.set(-850, 199.9, -119);
+
+    this.fence1 = new Fence(this.gui, "");
+    this.add (this.fence1);
+
+    this.fence1.scale.set(4,4,4);
+    this.fence1.rotation.y = Math.PI/2;
+    this.fence1.position.set(-400, 0, -217);
+
+    this.fence2 = new Fence(this.gui, "");
+    this.add (this.fence2);//-185,5 66,5
+
+    this.fence2.scale.set(4,4,4);
+    this.fence2.rotation.y = Math.PI/2;
+    this.fence2.position.set(-400, 0, 217);
+
+    this.fence3 = new Fence(this.gui, "");
+    this.add (this.fence3);
+
+    this.fence3.scale.set(4,4,4);
+    this.fence3.rotation.y = Math.PI/2;
+    this.fence3.position.set(-400, 0, -154);
+
+    this.fence4 = new Fence(this.gui, "");
+    this.add (this.fence4);
+
+    this.fence4.scale.set(4,4,4);
+    this.fence4.rotation.y = Math.PI/2;
+    this.fence4.position.set(-400, 0, -91);
+
+    this.fence5 = new Fence(this.gui, "");
+    this.add (this.fence5);
+
+    this.fence5.scale.set(4,4,4);
+    this.fence5.rotation.y = Math.PI/2;
+    this.fence5.position.set(-400, 0, -28);
+
+    this.fence6 = new Fence(this.gui, "");
+    this.add (this.fence6);
+
+    this.fence6.scale.set(4,4,4);
+    this.fence6.rotation.y = Math.PI/2;
+    this.fence6.position.set(-400, 0, 35);
 
 
     /*
@@ -106,6 +149,7 @@ class MyScene extends THREE.Scene {
     //this.estanteria.scale.set(2.5,2.5,2.5);
     this.add (this.estanteria);
 
+    
 
 
     /*
