@@ -13,6 +13,7 @@ import * as KeyCode from '../libs/keycode.esm.js'
 import { Llave } from './llave.js'
 import { ParedCentral } from './paredCentral.js'
 import { BolaDemolicion } from './bolaDemolicion.js'
+import { Laberinto } from './laberinto.js'
  
 /// La clase fachada del modelo
 /**
@@ -72,6 +73,14 @@ class MyScene extends THREE.Scene {
     this.add (this.bolaDemolicion3);
 
     this.bolaDemolicion3.position.set(-850, 199.9, -100);
+
+
+    /*
+      PRIMERA SALA: LABERINTO
+    */
+    this.laberinto = new Laberinto(this.gui, "");
+    this.laberinto.position.set(400,0,0);
+    this.add (this.laberinto);
 
     /*
       LLAVE
