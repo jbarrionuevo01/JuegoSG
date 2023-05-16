@@ -134,13 +134,13 @@ class MyScene extends THREE.Scene {
     this.mesa = new Mesa(this.gui, "");
     this.mesa.position.set(975,0,50);
     this.mesa.rotation.y = (Math.PI / 2);
-    this.mesa.scale.set(3,3,3);
+    this.mesa.scale.set(2,2,2);
     this.add (this.mesa);
 
     this.silla = new Silla(this.gui, "");
     this.silla.position.set(975,0,50);
     this.silla.rotation.y = (Math.PI / 2);
-    this.silla.scale.set(3,3,3);
+    this.silla.scale.set(2,2,2);
     this.add (this.silla);
 
     this.estanteria = new Estanteria(this.gui, "");

@@ -6,10 +6,14 @@ class Estanteria extends THREE.Object3D {
   constructor(gui, titleGui){
     super();
 
-    //var mat = new THREE.MeshNormalMaterial();
-    var mat = new THREE.MeshPhongMaterial({color: 0x0070FF});
+    
+    var texture = new THREE.TextureLoader().load('./imgs/metal.jpg');
+    var mat = new THREE.MeshPhongMaterial ({map: texture});
 
-    var geometriaBaldasHorizontales = new THREE.BoxGeometry(2.5,10,0.5);
+    //var mat = new THREE.MeshNormalMaterial();
+    //var mat = new THREE.MeshPhongMaterial({color: 0x0070FF});
+
+    var geometriaBaldasHorizontales = new THREE.BoxGeometry(2.5,9.5,0.5);
     geometriaBaldasHorizontales.rotateZ(Math.PI / 2);
     geometriaBaldasHorizontales.rotateX(Math.PI / 2);
     geometriaBaldasHorizontales.translate(0,0.25,0);

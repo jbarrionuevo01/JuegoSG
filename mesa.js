@@ -6,8 +6,10 @@ class Mesa extends THREE.Object3D {
   constructor(gui, titleGui){
     super();
 
-    //var mat = new THREE.MeshNormalMaterial();
-    var mat = new THREE.MeshPhongMaterial({color: 0x00FF13});
+    var texture = new THREE.TextureLoader().load('./imgs/madera1.jpg');
+    var mat = new THREE.MeshPhongMaterial ({map: texture});
+
+    //var mat = new THREE.MeshPhongMaterial({color: 0x00FF13});
 
     var geometriaPatamesa = new THREE.BoxGeometry(0.5,4,0.5);
     geometriaPatamesa.translate(0,2,0);
@@ -26,7 +28,7 @@ class Mesa extends THREE.Object3D {
 
     var geometriaTablero = new THREE.BoxGeometry(8.5,4.5,0.5);
     var tableroMesa = new THREE.Mesh (geometriaTablero, mat);
-    tableroMesa.position.y = 4;
+    tableroMesa.position.y = 4.25;
     tableroMesa.rotation.x = (Math.PI / 2);
 
 
