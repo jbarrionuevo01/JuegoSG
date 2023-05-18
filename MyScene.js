@@ -422,22 +422,66 @@ onKeyPress = function (event) {
       }
 
 }
+
+testColision(dondeEstoy, aDondeMiro){
+  this.colision.set(dondeEstoy, aDondeMiro);
+
+  this.impactados = this.colision.intersectObjects(this.children, true);
+
+  var distanciaMasCercano = null;
+  if (this.impactados.length > 0) {
+    distanciaMasCercano = this.impactados[0].distance;
+    if(distanciaMasCercano < 10){
+      console.log("estas mu cerca");
+      return true;
+    }
+  }
+  return false;
+}
   update () {
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
 
 
     if(this.avanzar) {
-      this.controls.moveForward(1.5) ;
+      this.posicion.copy(this.camera.position);
+      this.controls.getDirection(this.direccion);
+
+      this.direccion.y = 0;
+      this.direccion.normalize();
+      if (!this.testColision(this.posicion, this.direccion))
+        this.controls.moveForward(1.5) ;
     }
     if(this.retroceder) {
-      this.controls.moveForward(-1.5) ;
+      this.posicion.copy(this.camera.position);
+      this.controls.getDirection(this.direccion);
+
+      this.direccion.y = 0;
+      this.direccion.x *= -1;
+      this.direccion.z *= -1;
+      this.direccion.normalize();
+      if (!this.testColision(this.posicion, this.direccion))
+        this.controls.moveForward(-1.5) ;
     }
     if(this.derecha) {
-      this.controls.moveRight(1.5) ;
+      this.posicion.copy(this.camera.position);
+      this.controls.getDirection(this.direccion);
+
+      this.direccion.y = 0;
+      this.direccion.z *= -0.5;
+      this.direccion.normalize();
+      if (!this.testColision(this.posicion, this.direccion))
+        this.controls.moveRight(1.5) ;
     }
     if(this.izquierda) {
-      this.controls.moveRight(-1.5) ;
+      this.posicion.copy(this.camera.position);
+      this.controls.getDirection(this.direccion);
+
+      this.direccion.y = 0;
+      this.direccion.x *= -1;
+      this.direccion.normalize();
+      if (!this.testColision(this.posicion, this.direccion))
+        this.controls.moveRight(-1.5) ;
     }
     
     // Se actualiza el resto del modelo
