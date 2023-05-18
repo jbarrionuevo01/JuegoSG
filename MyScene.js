@@ -445,11 +445,17 @@ testColision(dondeEstoy, aDondeMiro){
   }
   return false;
 }
+
+prepararDireccion() {
+  
+}
+
   update () {
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
 
 
+    var eje = new THREE.Vector3(0,1,0);
     if(this.avanzar) {
       this.posicion.copy(this.camera.position);
       this.controls.getDirection(this.direccion);
@@ -464,8 +470,7 @@ testColision(dondeEstoy, aDondeMiro){
       this.controls.getDirection(this.direccion);
 
       this.direccion.y = 0;
-      this.direccion.x *= -1;
-      this.direccion.z *= -1;
+      this.direccion.applyAxisAngle(eje, Math.PI);
       this.direccion.normalize();
       if (!this.testColision(this.posicion, this.direccion))
         this.controls.moveForward(-1.5) ;
@@ -474,8 +479,8 @@ testColision(dondeEstoy, aDondeMiro){
       this.posicion.copy(this.camera.position);
       this.controls.getDirection(this.direccion);
 
-      this.direccion.y = 0;
-      this.direccion.z *= -0.5;
+      this.direccion.y = 1;
+      this.direccion.applyAxisAngle(eje, -Math.PI/2);
       this.direccion.normalize();
       if (!this.testColision(this.posicion, this.direccion))
         this.controls.moveRight(1.5) ;
@@ -484,8 +489,8 @@ testColision(dondeEstoy, aDondeMiro){
       this.posicion.copy(this.camera.position);
       this.controls.getDirection(this.direccion);
 
-      this.direccion.y = 0;
-      this.direccion.x *= -1;
+      this.direccion.y = 1;
+      this.direccion.applyAxisAngle(eje, Math.PI/2);
       this.direccion.normalize();
       if (!this.testColision(this.posicion, this.direccion))
         this.controls.moveRight(-1.5) ;
