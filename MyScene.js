@@ -57,6 +57,13 @@ class MyScene extends THREE.Scene {
     this.mouse = new THREE.Vector2();
     this.raycaster = new THREE.Raycaster();
 
+    // COLLISION
+    this.colision = new THREE.Raycaster();
+    this.colision.far = 15;
+    this.posicion = new THREE.Vector3();
+    this.direccion = new THREE.Vector3();
+    this.impactados = null;
+
     // La habitación 
     this.createRoom ();  
     
