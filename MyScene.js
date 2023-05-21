@@ -17,7 +17,9 @@ import { Laberinto } from './laberinto.js'
 import { Mesa } from './mesa.js'
 import { Silla } from './silla.js'
 import { Estanteria } from './estanteria.js'
+import { Cama } from './cama.js'
 import { Fence } from './fence.js'
+
  
 /// La clase fachada del modelo
 /**
@@ -156,7 +158,11 @@ class MyScene extends THREE.Scene {
     //this.estanteria.scale.set(2.5,2.5,2.5);
     this.add (this.estanteria);
 
-    
+    this.cama = new Cama(this.gui, "");
+    this.cama.position.set(980,0,120);
+    this.cama.rotation.y = (Math.PI);
+    this.cama.scale.set(2,2,2);
+    this.add (this.cama);
 
 
     /*
