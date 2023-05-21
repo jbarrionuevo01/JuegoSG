@@ -18,6 +18,7 @@ import { Mesa } from './mesa.js'
 import { Silla } from './silla.js'
 import { Estanteria } from './estanteria.js'
 import { Cama } from './cama.js'
+import { Planta } from './planta.js'
 import { Fence } from './fence.js'
 
  
@@ -163,6 +164,13 @@ class MyScene extends THREE.Scene {
     this.cama.rotation.y = (Math.PI);
     this.cama.scale.set(2,2,2);
     this.add (this.cama);
+
+    this.planta = new Planta(this.gui, "");
+    this.planta.position.set(980,0,80);
+    this.planta.rotation.y = (Math.PI);
+    this.planta.scale.set(2,2,2);
+    this.add (this.planta);
+
 
 
     /*
