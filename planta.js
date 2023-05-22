@@ -17,10 +17,10 @@ class Planta extends THREE.Object3D {
     points.push (new THREE.Vector2 (2.5,4));
     points.push (new THREE.Vector2 (0,4));
 
-    var textureArcilla = new THREE.TextureLoader().load('../imgs/arcilla.jpg');
+    var textureArcilla = new THREE.TextureLoader().load('./imgs/arcilla.jpg');
     var matMaceta = new THREE.MeshPhongMaterial ({map: textureArcilla});
  
-    var textureTierra = new THREE.TextureLoader().load('../imgs/tierra.jpg');
+    var textureTierra = new THREE.TextureLoader().load('./imgs/tierra.jpg');
     var matTierra = new THREE.MeshPhongMaterial({map: textureTierra});
 
     var geometriaMaceta = new THREE.LatheGeometry (points , 100 , 0 , Math.PI * 2);
@@ -47,7 +47,7 @@ class Planta extends THREE.Object3D {
     var geometriaPlanta= new THREE.LatheGeometry (points , 100 , 0 , Math.PI * 2);
     geometriaPlanta.translate(0,3,0);
     geometriaPlanta.scale(1.5,1.5,1.5);
-    var textureCesped = new THREE.TextureLoader().load('../imgs/cesped.jpg');
+    var textureCesped = new THREE.TextureLoader().load('./imgs/cesped.jpg');
     var matPlanta =  new THREE.MeshPhongMaterial ({map: textureCesped});
     var planta = new THREE.Mesh(geometriaPlanta, matPlanta);
 

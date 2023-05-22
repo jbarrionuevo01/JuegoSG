@@ -44,6 +44,9 @@ class Lampara extends THREE.Object3D {
     geometriaHueco.translate(-2.25,5.45,0);
     var huecofoco = new THREE.Mesh(geometriaHueco, mat);
 
+    var light = new THREE.PointLight( 0xffffff, 1, 100 );
+    light.position.set( -2, 5, 0 );
+
     var csg = new CSG();
     csg.union([base]);
     csg.union([brazo1]);
@@ -59,6 +62,7 @@ class Lampara extends THREE.Object3D {
     
     this.lampara = new THREE.Object3D();
     this.lampara.add(focoConHueco);
+    this.lampara.add(light);
     this.add(this.lampara);
 }
 
