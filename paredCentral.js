@@ -6,14 +6,21 @@ class ParedCentral extends THREE.Object3D {
   constructor(gui, titleGui){
     super();
 
-    var mat = new THREE.MeshNormalMaterial();
+    //var mat = new THREE.MeshNormalMaterial();
+
+    var texturePared = new THREE.TextureLoader().load('./imgs/ladrillos.jpg');
+    texturePared.wrapS = THREE.RepeatWrapping;
+    texturePared.wrapT = THREE.RepeatWrapping;
+    texturePared.repeat.set(2,2);
+
+    var materialPared = new THREE.MeshPhongMaterial ({map: texturePared});
     var geometryWallInt = new THREE.BoxGeometry (5,199.9,499.9);
     
-    var wallInt = new THREE.Mesh (geometryWallInt, mat);
+    var wallInt = new THREE.Mesh (geometryWallInt, materialPared);
 
     // Hueco puerta paredes interiores
     var huecoWallIntGeom = new THREE.BoxGeometry (10,60,20);
-    var huecoWallInt = new THREE.Mesh (huecoWallIntGeom, mat);
+    var huecoWallInt = new THREE.Mesh (huecoWallIntGeom, materialPared);
 
     wallInt.position.y = 100;
     huecoWallInt.y = 11;

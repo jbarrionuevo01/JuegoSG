@@ -60,6 +60,7 @@ class MyScene extends THREE.Scene {
     // PICKING
     this.mouse = new THREE.Vector2();
     this.raycaster = new THREE.Raycaster();
+    this.raycaster.far = 150;
 
     // COLLISION
     this.colision = new THREE.Raycaster();
@@ -276,6 +277,12 @@ onKeyPress = function (event) {
 
     // Material
     var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
+    var textureSuelo = new THREE.TextureLoader().load('./imgs/suelo.jpg');
+    textureSuelo.wrapS = THREE.RepeatWrapping;
+    textureSuelo.wrapT = THREE.RepeatWrapping;
+    textureSuelo.repeat.set(32,8);
+
+    var materialSuelo = new THREE.MeshPhongMaterial ({map: textureSuelo});
     var materialGround = new THREE.MeshPhongMaterial ({map: texture});
     
     //CREAR EXTERIOR (CAJA) DE LA HABITACIÓN
@@ -289,7 +296,7 @@ onKeyPress = function (event) {
     var geometryFrontWall = new THREE.BoxGeometry (altoHabitacion,0.2,anchoHabitacion);
     
     // Mesh
-    var ground = new THREE.Mesh (geometryGroundRoof, materialGround);
+    var ground = new THREE.Mesh (geometryGroundRoof, materialSuelo);
     var roof = new THREE.Mesh (geometryGroundRoof, materialGround);
 
     var wall1 = new THREE.Mesh (geometrySideWall, materialGround);
