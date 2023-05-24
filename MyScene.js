@@ -206,7 +206,7 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (900, 18, 0);
+    this.camera.position.set (-300, 18, 0);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,18,0);
     this.camera.lookAt(look);
@@ -529,6 +529,26 @@ prepararDireccion() {
     this.bolaDemolicion1.update();
     this.bolaDemolicion2.update();
     this.bolaDemolicion3.update();
+
+    // COLISION CON BOLAS
+    var bola1Pos = new THREE.Vector3();
+    bola1Pos = this.bolaDemolicion1.getBolaPosition();
+    bola1Pos.y = 18;
+
+    var bola3Pos = new THREE.Vector3();
+    bola3Pos = this.bolaDemolicion3.getBolaPosition();
+    bola3Pos.y = 18;
+
+    var bola2Pos = new THREE.Vector3();
+    bola2Pos = this.bolaDemolicion2.getBolaPosition();
+    bola2Pos.y = 18;
+
+    if(this.camera.position.distanceTo(bola1Pos) < 20 || this.camera.position.distanceTo(bola2Pos) < 20 || this.camera.position.distanceTo(bola3Pos) < 20 ){
+      console.log("pum muerto");
+      this.camera.position.set (-300, 18, 0);
+    }
+
+
     
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".

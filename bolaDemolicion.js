@@ -17,7 +17,7 @@ class BolaDemolicion extends THREE.Object3D {
     var cadena = new THREE.Mesh(cadenaGeom, matBola);
 
     var bolaGeom = new THREE.SphereGeometry(4*7, 10*7, 10*7);
-    var bola = new THREE.Mesh(bolaGeom, matBola);
+    this.bola = new THREE.Mesh(bolaGeom, matBola);
 
     var soporteGeom1 = new THREE.CylinderGeometry(2*7, 2*7, 1*7, 20);
     var soporte1 = new THREE.Mesh(soporteGeom1, matSoporte);
@@ -26,11 +26,11 @@ class BolaDemolicion extends THREE.Object3D {
     var soporte2 = new THREE.Mesh(soporteGeom2, matSoporte);
 
     cadena.position.y = -10*7;
-    bola.position.y = -19*7;
+    this.bola.position.y = -19*7;
 
     this.bolaDemolicion = new THREE.Object3D();
     this.bolaDemolicion.add(cadena);
-    this.bolaDemolicion.add(bola);
+    this.bolaDemolicion.add(this.bola);
 
     var origen = { t:-Math.PI/4};
     var fin = {t:Math.PI/4};
@@ -65,6 +65,12 @@ class BolaDemolicion extends THREE.Object3D {
   
   createGUI (gui,titleGui) {
 
+  }
+
+  getBolaPosition(){
+    var bolaPos = new THREE.Vector3();
+    this.bola.getWorldPosition(bolaPos);
+    return bolaPos;
   }
 
   update () {
