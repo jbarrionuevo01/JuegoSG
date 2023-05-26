@@ -39,11 +39,18 @@ class Llave extends THREE.Object3D {
     this.llave.position.y = 4;
     this.llave.rotation.z = Math.PI/2;
 
+    this.cil.userData = this;
+    this.cil2.userData = this;
+    this.cil3.userData = this;
+    this.toro.userData = this;
+
     this.add(this.llave);
 
 }
 
-
+recibeClic(meshConcreto) {
+  console.log('click en llave');
+}
 
 update(){
     //  Con independencia de cómo se escriban las 3 lineas siguientes, el orden en el que se aplican las transformaciones es:

@@ -21,6 +21,8 @@ import { Cama } from './cama.js'
 import { Planta } from './planta.js'
 import { Lampara } from './lampara.js'
 import { Fence } from './fence.js'
+import { Puerta } from './puerta.js'
+
 
  
 /// La clase fachada del modelo
@@ -194,8 +196,7 @@ class MyScene extends THREE.Scene {
 
 
     // Objetos pickables
-    this.pickableObjects = [];
-    this.pickableObjects.push(this.llave);
+    this.pickables = [this.puerta, this.llave];
 
   }
   
@@ -206,8 +207,8 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    //this.camera.position.set (-300, 18, 0);
-    this.camera.position.set (950, 18, 100);
+    this.camera.position.set (-300, 18, 0);
+    //this.camera.position.set (950, 18, 100);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,18,0);
     this.camera.lookAt(look);
@@ -338,13 +339,19 @@ onKeyPress = function (event) {
     this.central1.position.x = 800;
     this.central3.position.x = -300;
 
+    // ultima pared de la habitacion
     var final = new ParedCentral(this.gui, "");
     final.position.x = -largoHabitacion/2;
+
+    // la ultima pared tiene una puerta
+    this.puerta = new Puerta(this.gui, "");
+    this.puerta.position.x = -largoHabitacion/2;
 
     this.add(this.central1);
     this.add(this.central2);
     this.add(this.central3);
     this.add(final);
+    this.add(this.puerta);
 
   }
   
@@ -446,15 +453,14 @@ onKeyPress = function (event) {
     // Rayo de la camara que pasa por donde se hizo click
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
-    var pickedObjects = this.raycaster.intersectObjects(this.children, false);
-    var selectedObject = null;
+    var pickedObjects = this.raycaster.intersectObjects(this.pickables, true);
 
     if (pickedObjects.length > 0) {
-        selectedObject = pickedObjects[0].object;
+        var selectedObject = pickedObjects[0].object;
         console.log("picked object");
-        /*if(selectedObject.userData){ 
+        if(selectedObject.userData){ 
           selectedObject.userData.recibeClick(selectedObject);
-        }*/
+        }
       }
 
 }
