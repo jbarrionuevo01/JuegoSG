@@ -459,7 +459,7 @@ onKeyPress = function (event) {
         var selectedObject = pickedObjects[0].object;
         console.log("picked object");
         if(selectedObject.userData){ 
-          selectedObject.userData.recibeClick(selectedObject);
+          selectedObject.userData.recibeClic(selectedObject);
         }
       }
 
