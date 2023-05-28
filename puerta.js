@@ -100,11 +100,12 @@ class Puerta extends THREE.Object3D {
     pomo.userData = this; // referenciar al objeto entero cuando se haga click en el pomo
     this.add(puerta);
 
-    this.tieneLlave = false;
+    this.sePuedeAbrir = false;
+    this.esAutomatica = false;
 }
 
 recibeClic(meshConcreto) { // si se clicó el pomo si está cerrada se abre y viceversa
-  if(this.tieneLlave){
+  if(this.sePuedeAbrir || this.esAutomatica){
     if(!this.abierta){
       this.animacion1.start();
       this.abierta = true;
@@ -113,11 +114,17 @@ recibeClic(meshConcreto) { // si se clicó el pomo si está cerrada se abre y vi
       this.animacion2.start();
       this.abierta = false;
     }
+
+    this.esAutomatica = false;
   }
 }
 
-setTieneLlave(tiene){
-  this.tieneLlave = tiene;
+setSePuedeAbrir(sePuede){
+  this.sePuedeAbrir = sePuede;
+}
+
+setEsAutomatica(automatica){
+  this.esAutomatica = automatica;
 }
 
 update(){
@@ -131,9 +138,13 @@ update(){
     //-= así va en el sentido de las agujas del reloj
     //espacio = velocidad x tiempo
 
-    //this.llave.rotation.y += 0.01;
+    //this.llave.rotation.y += 0.01
 
   TWEEN.update();
+
+  if(this.esAutomatica == true){
+    recibeClic();
+  }
 }
 }
 

@@ -188,8 +188,21 @@ class MyScene extends THREE.Scene {
     */
 
     this.lampPuzzle = new LamparaPuzzle(this);
-    this.lampPuzzle.position.set(-150, 0, 40);
+    this.lampPuzzle.position.set(-150, 0, 80);
     this.add(this.lampPuzzle);
+
+    /*this.lampPuzzle2 = new LamparaPuzzle(this);
+    this.lampPuzzle2.position.set(-150, 0, 0);
+    this.add(this.lampPuzzle2);
+
+    this.lampPuzzle3 = new LamparaPuzzle(this);
+    this.lampPuzzle3.position.set(-150, 0, -80);
+    this.add(this.lampPuzzle3);*/
+
+    this.puertaPuzzle = new Puerta(this);
+    this.puertaPuzzle.position.set(-300, 0, 0);
+    this.add(this.puertaPuzzle);
+    this.puertaPuzzle.setEsAutomatica(true);
 
 
 
@@ -206,7 +219,7 @@ class MyScene extends THREE.Scene {
 
 
     // Objetos pickables
-    this.pickables = [this.puerta, this.llave, this.lampPuzzle];
+    this.pickables = [this.puerta, this.llave, this.lampPuzzle, /*this.lampPuzzle2, this.lampPuzzle3, */];
 
   }
   
@@ -472,7 +485,7 @@ onKeyPress = function (event) {
           selectedObject.userData.recibeClic(selectedObject);
 
           if(selectedObject.userData == this.llave){
-            this.puerta.setTieneLlave(true);
+            this.puerta.setSePuedeAbrir(true);
           }
         }
       }
@@ -539,6 +552,10 @@ testColision(dondeEstoy, aDondeMiro){
       this.direccion.normalize();
       if (!this.testColision(this.posicion, this.direccion))
         this.controls.moveRight(-1.5) ;
+    }
+
+    if(this.lampPuzzle.getColorLuz() == "verde" /*&& this.lampPuzzle2.getColorLuz == "rosa" && this.lampPuzzle3.getColorLuz == "verde"*/){
+      this.puertaPuzzle.recibeClic("");
     }
     
     // Se actualiza el resto del modelo

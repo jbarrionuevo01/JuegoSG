@@ -87,7 +87,10 @@ class LamparaPuzzle extends THREE.Object3D {
       if(this.colorLuz == "rojo"){
         this.light.color.setHex( 0x00ff00 );
         this.colorLuz = "verde";
-      }else{
+      }else if(this.colorLuz == "verde"){
+        this.light.color.setHex( 0xff00ff );
+        this.colorLuz = "rosa";
+      } else{
         this.light.color.setHex( 0xff0000 );
         this.colorLuz = "rojo";
       }
