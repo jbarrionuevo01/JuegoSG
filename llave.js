@@ -50,6 +50,8 @@ class Llave extends THREE.Object3D {
 
 recibeClic(meshConcreto) {
   console.log('click en llave');
+  this.llave.visible = false;
+  window.alert("Has obtenido la llave");
 }
 
 update(){

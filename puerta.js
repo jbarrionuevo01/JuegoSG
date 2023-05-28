@@ -99,17 +99,25 @@ class Puerta extends THREE.Object3D {
 
     pomo.userData = this; // referenciar al objeto entero cuando se haga click en el pomo
     this.add(puerta);
+
+    this.tieneLlave = false;
 }
 
 recibeClic(meshConcreto) { // si se clicó el pomo si está cerrada se abre y viceversa
-  if(!this.abierta){
-    this.animacion1.start();
-    this.abierta = true;
+  if(this.tieneLlave){
+    if(!this.abierta){
+      this.animacion1.start();
+      this.abierta = true;
+    }
+    else{
+      this.animacion2.start();
+      this.abierta = false;
+    }
   }
-  else{
-    this.animacion2.start();
-    this.abierta = false;
-  }
+}
+
+setTieneLlave(tiene){
+  this.tieneLlave = tiene;
 }
 
 update(){

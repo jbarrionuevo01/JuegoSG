@@ -22,6 +22,7 @@ import { Planta } from './planta.js'
 import { Lampara } from './lampara.js'
 import { Fence } from './fence.js'
 import { Puerta } from './puerta.js'
+import { LamparaPuzzle } from './lamparaPuzzle.js'
 
 
  
@@ -182,6 +183,15 @@ class MyScene extends THREE.Scene {
     this.add (this.lampara);
 
 
+    /*
+      SEGUNDA SALA
+    */
+
+    this.lampPuzzle = new LamparaPuzzle(this);
+    this.lampPuzzle.position.set(-150, 0, 40);
+    this.add(this.lampPuzzle);
+
+
 
     /*
       LLAVE
@@ -196,7 +206,7 @@ class MyScene extends THREE.Scene {
 
 
     // Objetos pickables
-    this.pickables = [this.puerta, this.llave];
+    this.pickables = [this.puerta, this.llave, this.lampPuzzle];
 
   }
   
@@ -460,6 +470,10 @@ onKeyPress = function (event) {
         console.log("picked object");
         if(selectedObject.userData){ 
           selectedObject.userData.recibeClic(selectedObject);
+
+          if(selectedObject.userData == this.llave){
+            this.puerta.setTieneLlave(true);
+          }
         }
       }
 
@@ -479,10 +493,6 @@ testColision(dondeEstoy, aDondeMiro){
     }
   }
   return false;
-}
-
-prepararDireccion() {
-  
 }
 
   update () {
