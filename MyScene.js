@@ -3,10 +3,7 @@
 
 import * as THREE from '../libs/three.module.js'
 import { GUI } from '../libs/dat.gui.module.js'
-import { TrackballControls } from '../libs/TrackballControls.js'
-import { CSG } from '../libs/CSG-v2.js'
 import { PointerLockControls } from '../libs/PointerLockControls.js'
-import * as KeyCode from '../libs/keycode.esm.js'
 
 // Clases de mi proyecto
 
@@ -20,7 +17,6 @@ import { Estanteria } from './estanteria.js'
 import { Cama } from './cama.js'
 import { Planta } from './planta.js'
 import { Lampara } from './lampara.js'
-import { Fence } from './fence.js'
 import { Puerta } from './puerta.js'
 import { LamparaPuzzle } from './lamparaPuzzle.js'
 import { Valla } from './valla.js'
@@ -210,13 +206,13 @@ class MyScene extends THREE.Scene {
     this.lampPuzzle.position.set(-150, 0, 80);
     this.add(this.lampPuzzle);
 
-    /*this.lampPuzzle2 = new LamparaPuzzle(this);
+    this.lampPuzzle2 = new LamparaPuzzle(this);
     this.lampPuzzle2.position.set(-150, 0, 0);
     this.add(this.lampPuzzle2);
 
     this.lampPuzzle3 = new LamparaPuzzle(this);
     this.lampPuzzle3.position.set(-150, 0, -80);
-    this.add(this.lampPuzzle3);*/
+    this.add(this.lampPuzzle3);
 
     this.puertaPuzzle = new Puerta(this);
     this.puertaPuzzle.position.set(-300, 0, 0);
@@ -238,7 +234,7 @@ class MyScene extends THREE.Scene {
 
 
     // Objetos pickables
-    this.pickables = [this.puerta, this.llave, this.lampPuzzle, /*this.lampPuzzle2, this.lampPuzzle3, */];
+    this.pickables = [this.puerta, this.llave, this.lampPuzzle, this.lampPuzzle2, this.lampPuzzle3];
 
   }
   
@@ -573,7 +569,7 @@ testColision(dondeEstoy, aDondeMiro){
         this.controls.moveRight(-1.5) ;
     }
 
-    if(this.lampPuzzle.getColorLuz() == "verde" /*&& this.lampPuzzle2.getColorLuz == "rosa" && this.lampPuzzle3.getColorLuz == "verde"*/){
+    if(this.lampPuzzle.getColorLuz() == "verde" && this.lampPuzzle2.getColorLuz() == "rosa" && this.lampPuzzle3.getColorLuz() == "verde"){
       this.puertaPuzzle.recibeClic("");
     }
     
