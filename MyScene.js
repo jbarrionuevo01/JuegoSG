@@ -23,6 +23,7 @@ import { Lampara } from './lampara.js'
 import { Fence } from './fence.js'
 import { Puerta } from './puerta.js'
 import { LamparaPuzzle } from './lamparaPuzzle.js'
+import { Valla } from './valla.js'
 
 
  
@@ -93,48 +94,66 @@ class MyScene extends THREE.Scene {
 
     this.bolaDemolicion3.position.set(-850, 199.9, -119);
 
-    /*this.fence1 = new Fence(this.gui, "");
-    this.add (this.fence1);
+    
+    /*Primera linea de vallas */
+    this.valla1_1 = new Valla(this.gui, "");
+    this.valla1_1.position.set(-420,0,-218);
+    this.add(this.valla1_1);
+    this.valla1_2 = new Valla(this.gui, "");
+    this.valla1_2.position.set(-420,0,-150);
+    this.add(this.valla1_2);
+    this.valla1_3 = new Valla(this.gui, "");
+    this.valla1_3.position.set(-420,0,-82);
+    this.add(this.valla1_3);
+    this.valla1_4 = new Valla(this.gui, "");
+    this.valla1_4.position.set(-420,0,-14);
+    this.add(this.valla1_4);
+    this.valla1_5 = new Valla(this.gui, "");
+    this.valla1_5.position.set(-420,0,54);
+    this.add(this.valla1_5);
+    this.valla1_6 = new Valla(this.gui, "");
+    this.valla1_6.position.set(-420,0,218);
+    this.add(this.valla1_6);
 
-    this.fence1.scale.set(4,4,4);
-    this.fence1.rotation.y = Math.PI/2;
-    this.fence1.position.set(-400, 0, -217);
+    /*Segunda linea de vallas */
+    this.valla2_1 = new Valla(this.gui, "");
+    this.valla2_1.position.set(-620,0,-218);
+    this.add(this.valla2_1);
+    this.valla2_2 = new Valla(this.gui, "");
+    this.valla2_2.position.set(-620,0,-150);
+    this.add(this.valla2_2);
+    this.valla2_3 = new Valla(this.gui, "");
+    this.valla2_3.position.set(-620,0,-82);
+    this.add(this.valla2_3);
+    this.valla2_4 = new Valla(this.gui, "");
+    this.valla2_4.position.set(-620,0,82);
+    this.add(this.valla2_4);
+    this.valla2_5 = new Valla(this.gui, "");
+    this.valla2_5.position.set(-620,0,150);
+    this.add(this.valla2_5);
+    this.valla2_6 = new Valla(this.gui, "");
+    this.valla2_6.position.set(-620,0,218);
+    this.add(this.valla2_6);
 
-    this.fence2 = new Fence(this.gui, "");
-    this.add (this.fence2);//-185,5 66,5
-
-    this.fence2.scale.set(4,4,4);
-    this.fence2.rotation.y = Math.PI/2;
-    this.fence2.position.set(-400, 0, 217);
-
-    this.fence3 = new Fence(this.gui, "");
-    this.add (this.fence3);
-
-    this.fence3.scale.set(4,4,4);
-    this.fence3.rotation.y = Math.PI/2;
-    this.fence3.position.set(-400, 0, -154);
-
-    this.fence4 = new Fence(this.gui, "");
-    this.add (this.fence4);
-
-    this.fence4.scale.set(4,4,4);
-    this.fence4.rotation.y = Math.PI/2;
-    this.fence4.position.set(-400, 0, -91);
-
-    this.fence5 = new Fence(this.gui, "");
-    this.add (this.fence5);
-
-    this.fence5.scale.set(4,4,4);
-    this.fence5.rotation.y = Math.PI/2;
-    this.fence5.position.set(-400, 0, -28);
-
-    this.fence6 = new Fence(this.gui, "");
-    this.add (this.fence6);
-
-    this.fence6.scale.set(4,4,4);
-    this.fence6.rotation.y = Math.PI/2;
-    this.fence6.position.set(-400, 0, 35);*/
-
+     /*Tercera linea de vallas */
+     this.valla3_1 = new Valla(this.gui, "");
+     this.valla3_1.position.set(-820,0,-218);
+     this.add(this.valla3_1);
+     this.valla3_2 = new Valla(this.gui, "");
+     this.valla3_2.position.set(-820,0,-54);
+     this.add(this.valla3_2);
+     this.valla3_3 = new Valla(this.gui, "");
+     this.valla3_3.position.set(-820,0,14);
+     this.add(this.valla3_3);
+     this.valla3_4 = new Valla(this.gui, "");
+     this.valla3_4.position.set(-820,0,82);
+     this.add(this.valla3_4);
+     this.valla3_5 = new Valla(this.gui, "");
+     this.valla3_5.position.set(-820,0,150);
+     this.add(this.valla3_5);
+     this.valla3_6 = new Valla(this.gui, "");
+     this.valla3_6.position.set(-820,0,218);
+     this.add(this.valla3_6);
 
     /*
       PRIMERA SALA: LABERINTO
