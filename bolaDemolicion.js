@@ -9,7 +9,7 @@ class BolaDemolicion extends THREE.Object3D {
     // Se crea primero porque otros métodos usan las variables que se definen para la interfaz
     this.createGUI(gui,titleGui);
 
-    var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
+    var texture = new THREE.TextureLoader().load('./imgs/wood.jpg');
     var matSoporte = new THREE.MeshPhongMaterial ({map: texture});
 
     var cadenaGeom = new THREE.CylinderGeometry(0.2*7, 0.2*7, 20*7, 15);

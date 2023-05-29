@@ -245,8 +245,8 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (-300, 18, 0);
-    //this.camera.position.set (950, 18, 100);
+    //this.camera.position.set (-300, 18, 0);
+    this.camera.position.set (950, 18, 100);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,18,0);
     this.camera.lookAt(look);
