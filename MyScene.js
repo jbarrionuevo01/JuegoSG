@@ -316,14 +316,27 @@ onKeyPress = function (event) {
     let altoHabitacion = 200;
 
     // Material
-    var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
+    var textureBit = new THREE.TextureLoader().load('./imgs/placaBase.jpg');
+    textureBit.wrapS = THREE.RepeatWrapping;
+    textureBit.wrapT = THREE.RepeatWrapping;
+    textureBit.repeat.set(32,6);
+
+    var textureBit2 = new THREE.TextureLoader().load('./imgs/placaBase.jpg');
+    textureBit2.wrapS = THREE.RepeatWrapping;
+    textureBit2.wrapT = THREE.RepeatWrapping;
+    textureBit2.repeat.set(6,6);
+
+
+    //var texture = new THREE.TextureLoader().load('./imgs/wood.jpg');
     var textureSuelo = new THREE.TextureLoader().load('./imgs/suelo.jpg');
     textureSuelo.wrapS = THREE.RepeatWrapping;
     textureSuelo.wrapT = THREE.RepeatWrapping;
     textureSuelo.repeat.set(32,8);
 
+    var materialBit = new THREE.MeshPhongMaterial ({map: textureBit});
+    var materialBit2 = new THREE.MeshPhongMaterial ({map: textureBit2});
     var materialSuelo = new THREE.MeshPhongMaterial ({map: textureSuelo});
-    var materialGround = new THREE.MeshPhongMaterial ({map: texture});
+    //var materialGround = new THREE.MeshPhongMaterial ({map: texture});
     
     //CREAR EXTERIOR (CAJA) DE LA HABITACIÓN
     // Geometria del suelo y el techo
@@ -337,12 +350,12 @@ onKeyPress = function (event) {
     
     // Mesh
     var ground = new THREE.Mesh (geometryGroundRoof, materialSuelo);
-    var roof = new THREE.Mesh (geometryGroundRoof, materialGround);
+    var roof = new THREE.Mesh (geometryGroundRoof, materialBit);
 
-    var wall1 = new THREE.Mesh (geometrySideWall, materialGround);
-    var wall2 = new THREE.Mesh (geometrySideWall, materialGround);
+    var wall1 = new THREE.Mesh (geometrySideWall, materialBit);
+    var wall2 = new THREE.Mesh (geometrySideWall, materialBit);
 
-    var wall3 = new THREE.Mesh (geometryFrontWall, materialGround);
+    var wall3 = new THREE.Mesh (geometryFrontWall, materialBit2);
 
     // Colocar las paredes, suelo y techo donde correspone
     roof.position.y = altoHabitacion;

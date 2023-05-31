@@ -8,7 +8,7 @@ class Lampara extends THREE.Object3D {
 
     var mat = new THREE.MeshNormalMaterial;
 
-    var textureNegro = new THREE.TextureLoader().load('../imgs/negro.jpg');
+    var textureNegro = new THREE.TextureLoader().load('./imgs/negro.jpg');
     var matLampara = new THREE.MeshPhongMaterial ({map: textureNegro});
 
     var geometriaBase = new THREE.CylinderGeometry(1.5,1.5,0.6,50);
