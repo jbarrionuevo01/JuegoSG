@@ -197,6 +197,18 @@ class MyScene extends THREE.Scene {
     //this.lampara.scale.set(2,2,2);
     this.add (this.lampara);
 
+    var geometriaCartel1 = new THREE.BoxGeometry (70,0.2,50);
+    var textureCartel = new THREE.TextureLoader().load('./imgs/cartel1.jpg');
+    var materialCartel = new THREE.MeshPhongMaterial ({map: textureCartel});
+    this.cartel1 = new THREE.Mesh (geometriaCartel1, materialCartel);
+    this.cartel1.position.set(803,70,0);
+    this.cartel1.rotation.x = (3*Math.PI/2);
+    this.cartel1.rotation.z = (Math.PI/2);
+
+    //cartel1.position.y = 30;
+    //cartel1.position.z = 30;
+
+    this.add(this.cartel1);
 
     /*
       SEGUNDA SALA
