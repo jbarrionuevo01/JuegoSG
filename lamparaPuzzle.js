@@ -14,14 +14,25 @@ class LamparaPuzzle extends THREE.Object3D {
 
     // instantiate a loader
     const objLoader = new OBJLoader();
+    var materialLoader = new MTLLoader();
 
+    materialLoader.load('./models/lampara1.mtl', //Cambio la ruta para poner la ruta relativa
+    (materials) => {
+        materials.side = THREE.DoubleSide;
+        objLoader.setMaterials (materials);
+        objLoader.load('./models/lampara1.obj',
+            (object) => {
+              object.position.y = 18;
+              this.add(object);
+            },null,null);
+    });
     // load a resource
-    objLoader.load( './models/lampara.obj',
+    /*objLoader.load( './models/lampara.obj',
     ( object ) => {
       object.position.y = 18;
       this.add( object );
 
-    }, null, null);
+    }, null, null);*/
 
     this.light = new THREE.PointLight( 0xff0000, 1, 100 );
     this.light.position.set( 0, 50, 0 );
