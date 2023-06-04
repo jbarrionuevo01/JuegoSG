@@ -197,10 +197,10 @@ class MyScene extends THREE.Scene {
     //this.lampara.scale.set(2,2,2);
     this.add (this.lampara);
 
-    var geometriaCartel1 = new THREE.BoxGeometry (70,0.2,50);
-    var textureCartel = new THREE.TextureLoader().load('./imgs/cartel1.jpg');
-    var materialCartel = new THREE.MeshPhongMaterial ({map: textureCartel});
-    this.cartel1 = new THREE.Mesh (geometriaCartel1, materialCartel);
+    var geometriaCartel = new THREE.BoxGeometry (70,0.2,50);
+    var textureCartel1 = new THREE.TextureLoader().load('./imgs/cartel1.jpg');
+    var materialCartel1 = new THREE.MeshPhongMaterial ({map: textureCartel1});
+    this.cartel1 = new THREE.Mesh (geometriaCartel, materialCartel1);
     this.cartel1.position.set(803,70,0);
     this.cartel1.rotation.x = (3*Math.PI/2);
     this.cartel1.rotation.z = (Math.PI/2);
@@ -231,7 +231,60 @@ class MyScene extends THREE.Scene {
     this.add(this.puertaPuzzle);
     this.puertaPuzzle.setEsAutomatica(true);
 
+    var textureCartel2 = new THREE.TextureLoader().load('./imgs/cartel2.jpg');
+    var materialCartel2 = new THREE.MeshPhongMaterial ({map: textureCartel2});
+    this.cartel2 = new THREE.Mesh (geometriaCartel, materialCartel2);
+    this.cartel2.position.set(-297,120,0);
+    this.cartel2.rotation.x = (3*Math.PI/2);
+    this.cartel2.rotation.z = (Math.PI/2);
+    this.add(this.cartel2);
 
+    var textureCartelAdivinanza1 = new THREE.TextureLoader().load('./imgs/adivinanza1.jpg');
+    var materialCarteldivinanza1 = new THREE.MeshPhongMaterial ({map: textureCartelAdivinanza1});
+    this.cartelAdivinanza1 = new THREE.Mesh (geometriaCartel, materialCarteldivinanza1);
+    this.cartelAdivinanza1.position.set(-297,60,80);
+    this.cartelAdivinanza1.rotation.x = (3*Math.PI/2);
+    this.cartelAdivinanza1.rotation.z = (Math.PI/2);
+    this.add(this.cartelAdivinanza1);
+    
+    var textureCartelAdivinanza2 = new THREE.TextureLoader().load('./imgs/adivinanza2.jpg');
+    var materialCarteldivinanza2 = new THREE.MeshPhongMaterial ({map: textureCartelAdivinanza2});
+    this.cartelAdivinanza2 = new THREE.Mesh (geometriaCartel, materialCarteldivinanza2);
+    this.cartelAdivinanza2.position.set(-297,60,0);
+    this.cartelAdivinanza2.rotation.x = (3*Math.PI/2);
+    this.cartelAdivinanza2.rotation.z = (Math.PI/2);
+    this.add(this.cartelAdivinanza2);
+
+    var textureCartelAdivinanza3 = new THREE.TextureLoader().load('./imgs/adivinanza3.jpg');
+    var materialCarteldivinanza3 = new THREE.MeshPhongMaterial ({map: textureCartelAdivinanza3});
+    this.cartelAdivinanza3 = new THREE.Mesh (geometriaCartel, materialCarteldivinanza3);
+    this.cartelAdivinanza3.position.set(-297,60,-80);
+    this.cartelAdivinanza3.rotation.x = (3*Math.PI/2);
+    this.cartelAdivinanza3.rotation.z = (Math.PI/2);
+    this.add(this.cartelAdivinanza3);
+
+    /*
+      Cartel de la ultima sala
+    */
+    var textureCartel3 = new THREE.TextureLoader().load('./imgs/cartel3.jpg');
+    var materialCartel3 = new THREE.MeshPhongMaterial ({map: textureCartel3});
+    this.cartel3 = new THREE.Mesh (geometriaCartel, materialCartel3);
+    this.cartel3.position.set(-417,27,0);
+    this.cartel3.rotation.x = (3*Math.PI/2);
+    this.cartel3.rotation.z = (Math.PI/2);
+    this.add(this.cartel3);
+
+     /*
+      Cartel final
+    */
+    var textureCartelFinal = new THREE.TextureLoader().load('./imgs/cartelFinal.jpg');
+    var materialCartelFinal = new THREE.MeshPhongMaterial ({map: textureCartelFinal});
+    this.cartelFinal = new THREE.Mesh (geometriaCartel, materialCartelFinal);
+    this.cartelFinal.position.set(-1200,27,0);
+    this.cartelFinal.rotation.x = (3*Math.PI/2);
+    this.cartelFinal.rotation.z = (Math.PI/2);
+    this.cartelFinal.scale.set(3,3,3);
+    this.add(this.cartelFinal);
 
     /*
       LLAVE
@@ -257,7 +310,7 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    //this.camera.position.set (-300, 18, 0);
+    //this.camera.position.set (-900, 18, 0);
     this.camera.position.set (950, 18, 100);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,18,0);
